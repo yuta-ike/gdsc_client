@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/model/user.dart';
+import '../../model/user.dart';
 
 class UserProfileCard extends StatelessWidget {
   final User user;

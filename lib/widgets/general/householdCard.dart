@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/widgets/general/dDownMenu.dart';
+import '../../widgets/general/dDownMenu.dart';
 import '../../model/household.dart';
 import './inputTextField.dart';
 

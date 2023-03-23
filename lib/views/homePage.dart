@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/model/user.dart';
-import 'package:gdsc_clientx/views/inspectMainPage.dart';
-import 'package:gdsc_clientx/widgets/homepage/sideMenu.dart';
-import 'package:gdsc_clientx/widgets/listTile/warningListTile.dart';
-import 'package:gdsc_clientx/mock.dart';
-import 'package:gdsc_clientx/model/starredList.dart';
-import 'package:gdsc_clientx/widgets/appbar/appbar.dart';
-import 'package:gdsc_clientx/widgets/appbar/appbarButton.dart';
-import 'package:gdsc_clientx/widgets/homepage/roomInfoCard.dart';
-import 'package:gdsc_clientx/model/room.dart';
-import 'package:gdsc_clientx/widgets/general/eButton.dart';
-import 'package:gdsc_clientx/views/editRoomPage.dart';
+import '../model/user.dart';
+import '../views/inspectMainPage.dart';
+import '../widgets/homepage/sideMenu.dart';
+import '../widgets/listTile/warningListTile.dart';
+import '../mock.dart';
+import '../model/starredList.dart';
+import '../widgets/appbar/appbar.dart';
+import '../widgets/appbar/appbarButton.dart';
+import '../widgets/homepage/roomInfoCard.dart';
+import '../model/room.dart';
+import '../widgets/general/eButton.dart';
+import '../views/editRoomPage.dart';
 
 class HomePage extends StatefulWidget {
   @override

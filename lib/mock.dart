@@ -1,6 +1,5 @@
-import 'package:gdsc_clientx/model/roomShort.dart';
-import 'package:gdsc_clientx/model/user.dart';
-
+import './model/roomShort.dart';
+import './model/user.dart';
 import './model/room.dart';
 import './model/household.dart';
 import './model/starredList.dart';

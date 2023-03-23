@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/model/room.dart';
-import 'package:gdsc_clientx/model/roomShort.dart';
-import 'package:gdsc_clientx/widgets/sidemenu/roomListTile.dart';
+import '../../model/room.dart';
+import '../../model/roomShort.dart';
+import '../../widgets/sidemenu/roomListTile.dart';
 
 class RoomListView extends StatefulWidget {
   final List<RoomShort> roomListShort;

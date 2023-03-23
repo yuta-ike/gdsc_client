@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/model/roomShort.dart';
+import '../../model/roomShort.dart';
 
 class RoomListTile extends StatefulWidget {
   final RoomShort room;

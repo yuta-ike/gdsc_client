@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/model/room.dart';
-import 'package:gdsc_clientx/model/roomShort.dart';
-import 'package:gdsc_clientx/model/user.dart';
-import 'package:gdsc_clientx/views/editRoomPage.dart';
-import 'package:gdsc_clientx/widgets/general/tButton.dart';
-import 'package:gdsc_clientx/widgets/homepage/roomListView.dart';
-import 'package:gdsc_clientx/widgets/sidemenu/userProfileCard.dart';
+import '../../model/room.dart';
+import '../../model/roomShort.dart';
+import '../../model/user.dart';
+import '../../views/editRoomPage.dart';
+import '../../widgets/general/tButton.dart';
+import '../../widgets/sidemenu/roomListView.dart';
+import '../../widgets/sidemenu/userProfileCard.dart';
 
 class SideMenu extends StatefulWidget {
   final User user;
