@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/widgets/general/eButton.dart';
+import '../widgets/general/eButton.dart';
 import '../widgets/appbar/appbar.dart';
 import '../widgets/appbar/appbarButton.dart';
 import '../widgets/general/texttitle.dart';

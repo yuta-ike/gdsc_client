@@ -19,6 +19,9 @@ class Warning {
     this.screenShotBase64,
   });
 
+  String get warningTitleShort => warningTitle;
+  String get warningIntroShort => warningIntroText;
+
   editWarningInfo(newTitle, newIntroText) {
     warningTitle = newTitle;
     warningIntroText = newIntroText;

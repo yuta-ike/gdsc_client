@@ -8,16 +8,16 @@ import '../widgets/general/householdCard.dart';
 import '../widgets/general/eButton.dart';
 
 class EditRoomPage extends StatefulWidget {
-  final Room currRoom;
+  final Room? currRoom;
 
   EditRoomPage({
-    required this.currRoom,
+    this.currRoom,
   });
 
   TextEditingController get roomNameController =>
-      TextEditingController(text: currRoom.roomTitle);
+      TextEditingController(text: currRoom == null ? "" : currRoom!.roomTitle);
   TextEditingController get roomCityController =>
-      TextEditingController(text: currRoom.roomCity);
+      TextEditingController(text: currRoom == null ? "" : currRoom!.roomCity);
 
   @override
   State<EditRoomPage> createState() => _EditRoomPageState();
@@ -103,7 +103,11 @@ class _EditRoomPageState extends State<EditRoomPage> {
                   ),
                 ],
               );
-            } else if (index == widget.currRoom.householdList.length + 3) {
+            } else if (index ==
+                (widget.currRoom == null
+                        ? 0
+                        : widget.currRoom!.householdList.length) +
+                    3) {
               return Column(
                 children: [
                   SizedBox(
@@ -124,7 +128,7 @@ class _EditRoomPageState extends State<EditRoomPage> {
               return Column(
                 children: [
                   HouseHoldCard(
-                    household: widget.currRoom.householdList[index - 3],
+                    household: widget.currRoom!.householdList[index - 3],
                   ),
                   SizedBox(
                     height: 5,
@@ -133,7 +137,10 @@ class _EditRoomPageState extends State<EditRoomPage> {
               );
             }
           },
-          itemCount: 4 + widget.currRoom.householdList.length,
+          itemCount: (widget.currRoom == null
+                  ? 0
+                  : widget.currRoom!.householdList.length) +
+              4,
         ),
       ),
     );

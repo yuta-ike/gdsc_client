@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DDownMenu extends StatefulWidget {
+class DDownMenu extends StatelessWidget {
   final List<String> choices;
   final String title;
   final int? defaultValueIdx;
@@ -14,26 +14,21 @@ class DDownMenu extends StatefulWidget {
   });
 
   @override
-  State<DDownMenu> createState() => _DDownMenuState();
-}
-
-class _DDownMenuState extends State<DDownMenu> {
-  @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.fieldWidth,
+      width: fieldWidth,
       child: DropdownButtonFormField(
-        value: widget.defaultValueIdx == null ||
-                widget.defaultValueIdx! < 0 ||
-                widget.defaultValueIdx! >= widget.choices.length
-            ? widget.choices[0]
-            : widget.choices[widget.defaultValueIdx!],
+        value: defaultValueIdx == null ||
+                defaultValueIdx! < 0 ||
+                defaultValueIdx! >= choices.length
+            ? choices[0]
+            : choices[defaultValueIdx!],
         decoration: InputDecoration(
-            label: Text(widget.title),
+            label: Text(title),
             labelStyle: TextStyle(
               fontSize: 12,
             )),
-        items: widget.choices
+        items: choices
             .map(
               (value) => DropdownMenuItem(
                 child: Text(

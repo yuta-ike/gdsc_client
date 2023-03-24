@@ -24,8 +24,8 @@ class WarningListTile extends StatelessWidget {
       child: Card(
         child: ListTile(
           leading: warningIcon,
-          title: Text(warning.warningTitle),
-          subtitle: Text(warning.warningIntroText),
+          title: Text(warning.warningTitleShort),
+          subtitle: Text(warning.warningIntroShort),
           trailing: IconButton(
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(

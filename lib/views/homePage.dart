@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/views/inspectMainPage.dart';
-import 'package:gdsc_clientx/widgets/listTile/warningListTile.dart';
+import '../model/user.dart';
+import '../views/inspectMainPage.dart';
+import '../widgets/homepage/sideMenu.dart';
+import '../widgets/listTile/warningListTile.dart';
 import '../mock.dart';
 import '../model/starredList.dart';
 import '../widgets/appbar/appbar.dart';
@@ -8,7 +10,7 @@ import '../widgets/appbar/appbarButton.dart';
 import '../widgets/homepage/roomInfoCard.dart';
 import '../model/room.dart';
 import '../widgets/general/eButton.dart';
-import './editRoomPage.dart';
+import '../views/editRoomPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,21 +18,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final VoidCallback _menuButtonCallBack = () {};
-  final VoidCallback _listTileEditButtonCallBack = () {};
-
   final StarredList starredList = Mock.getMockStarredList;
 
   final Room room = Mock.getSingleRoom;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final User user = Mock.user;
+
+  final roomListShort = Mock.roomList;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBarConstructor(
         context: context,
         titleStr: room.roomTitle,
         leftNaviBarButton: AppBarButton(
-          buttonCallBack: _menuButtonCallBack,
+          buttonCallBack: () {
+            _scaffoldKey.currentState!.openDrawer();
+          },
           buttonIcon: Icon(Icons.menu),
           context: context,
         ),
@@ -48,6 +56,12 @@ class _HomePageState extends State<HomePage> {
           context: context,
         ),
       ),
+      drawer: SideMenu(
+        currRoom: room,
+        roomList: roomListShort,
+        user: user,
+      ),
+      drawerEdgeDragWidth: 0,
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 10,
