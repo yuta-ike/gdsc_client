@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../model/user.dart';
 import '../views/inspectMainPage.dart';
 import '../widgets/homepage/sideMenu.dart';
 import '../widgets/listTile/warningListTile.dart';
@@ -11,8 +11,12 @@ import '../widgets/homepage/roomInfoCard.dart';
 import '../model/room.dart';
 import '../widgets/general/eButton.dart';
 import '../views/editRoomPage.dart';
+import 'login.dart';
 
 class HomePage extends StatefulWidget {
+  HomePage({super.key});
+  final User? user = FirebaseAuth.instance.currentUser;
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -24,12 +28,24 @@ class _HomePageState extends State<HomePage> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final User user = Mock.user;
-
   final roomListShort = Mock.roomList;
 
   @override
   Widget build(BuildContext context) {
+    if (widget.user == null) {
+      return Scaffold(
+        body: Center(
+          child: eButton(
+              buttonPressedVoidBack: () => Navigator.of(context)
+                  .pushAndRemoveUntil(
+                      MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const LoginPage()),
+                      (route) => false),
+              buttonText: "Go to login"),
+        ),
+      );
+    }
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBarConstructor(
@@ -39,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           buttonCallBack: () {
             _scaffoldKey.currentState!.openDrawer();
           },
-          buttonIcon: Icon(Icons.menu),
+          buttonIcon: const Icon(Icons.menu),
           context: context,
         ),
         rightNaviBarButton: AppBarButton(
@@ -52,14 +68,14 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          buttonIcon: Icon(Icons.edit),
+          buttonIcon: const Icon(Icons.edit),
           context: context,
         ),
       ),
       drawer: SideMenu(
         currRoom: room,
         roomList: roomListShort,
-        user: user,
+        user: widget.user!,
       ),
       drawerEdgeDragWidth: 0,
       body: Padding(
