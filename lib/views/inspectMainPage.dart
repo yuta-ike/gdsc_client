@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/appbar/appbar.dart';
 import '../widgets/appbar/appbarButton.dart';
+import '../widgets/inspect/arCamera.dart';
 import '../widgets/general/eButton.dart';
 import './warningListPage.dart';
 import '../model/warning.dart';
@@ -25,10 +26,13 @@ class _InspectMainPageState extends State<InspectMainPage> {
             buttonIcon: Icon(Icons.arrow_back),
             context: context),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          // ARcore
-          Container(),
+          // ARCore
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.9,
+            child: ScreenshotWidget(),),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -36,17 +40,21 @@ class _InspectMainPageState extends State<InspectMainPage> {
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: eButton(
-                    buttonPressedVoidBack: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return WarningListPage(
-                            warningList: widget.warningList,
-                          );
-                        },
-                      ),
-                    ),
-                    buttonText: "SHOW WARNING LIST",
+                  child: Column(
+                    children: [
+                      // eButton(
+                      //   buttonPressedVoidBack: () => Navigator.of(context).push(
+                      //     MaterialPageRoute(
+                      //       builder: (context) {
+                      //         return WarningListPage(
+                      //           warningList: widget.warningList,
+                      //         );
+                      //       },
+                      //     ),
+                      //   ),
+                      //   buttonText: "SHOW WARNING LIST",
+                      // ),
+                    ],
                   ),
                 ),
               ),

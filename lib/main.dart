@@ -1,3 +1,4 @@
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_clientx/views/login.dart';
 import './mainTheme.dart';
@@ -7,9 +8,17 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  print('CHECK IF ARCORE IS AVAILABLE');
+  print(await ArCoreController.checkArCoreAvailability());
+
+  print('\nCHECK IF AR SERVICES IS INSTALLED');
+  print(await ArCoreController.checkIsArCoreInstalled());
+
   runApp(const MyApp());
 }
 

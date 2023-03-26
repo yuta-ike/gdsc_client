@@ -4,6 +4,7 @@ import './model/room.dart';
 import './model/household.dart';
 import './model/starredList.dart';
 import './model/warning.dart';
+import './model/position.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -128,4 +129,8 @@ class Mock {
         RoomShort(id: "2", roomName: "Goods Room"),
         RoomShort(id: "3", roomName: "Living Room"),
       ];
+
+  static List<Position> get objectsPosition => [
+    Position(xAxisCoordinate: 1.0, yAxisCoordinate: 2.0, zAxisCoordinate: 4.0),
+  ];
 }
