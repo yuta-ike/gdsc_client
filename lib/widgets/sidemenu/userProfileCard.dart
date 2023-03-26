@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../../model/user.dart';
+import '../../views/accountSettingsPage.dart';
 
 class UserProfileCard extends StatelessWidget {
   final User user;
@@ -35,20 +36,34 @@ class UserProfileCard extends StatelessWidget {
                 SizedBox(
                   width: 30,
                 ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: Image.memory(base64Decode(user.profileImageBase64))
-                          .image,
-                      fit: BoxFit.fill,
+                TextButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AccountSettingsPage(user: user);
+                      },
                     ),
-                    border: Border.all(
-                      width: 3,
-                      color: Color.fromRGBO(85, 85, 85, 1),
+                  ),
+                  style: ButtonStyle(
+                    overlayColor: MaterialStateColor.resolveWith(
+                        (states) => Colors.transparent),
+                  ),
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      image: DecorationImage(
+                        image:
+                            Image.memory(base64Decode(user.profileImageBase64))
+                                .image,
+                        fit: BoxFit.fill,
+                      ),
+                      border: Border.all(
+                        width: 3,
+                        color: Color.fromRGBO(85, 85, 85, 1),
+                      ),
                     ),
                   ),
                 ),
