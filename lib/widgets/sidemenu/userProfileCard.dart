@@ -1,18 +1,20 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../model/user.dart';
+import '../../views/accountSettingsPage.dart';
 
 class UserProfileCard extends StatelessWidget {
   final User user;
 
-  UserProfileCard({
+  const UserProfileCard({
+    super.key,
     required this.user,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(
           bottom: BorderSide(
@@ -23,7 +25,7 @@ class UserProfileCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -32,39 +34,51 @@ class UserProfileCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: Image.memory(base64Decode(user.profileImageBase64))
-                          .image,
-                      fit: BoxFit.fill,
-                    ),
-                    border: Border.all(
-                      width: 3,
-                      color: Color.fromRGBO(85, 85, 85, 1),
+                ClipOval(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return AccountSettingsPage(user: user);
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        image: DecorationImage(
+                          image: Image.network(user.photoURL!).image,
+                          fit: BoxFit.fill,
+                        ),
+                        border: Border.all(
+                          width: 3,
+                          color: const Color.fromRGBO(85, 85, 85, 1),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Column(
                   children: [
                     Text(
-                      user.username,
-                      style: TextStyle(
+                      user.displayName ?? "No Name",
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                   ],

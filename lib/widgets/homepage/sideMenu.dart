@@ -1,7 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../model/room.dart';
 import '../../model/roomShort.dart';
-import '../../model/user.dart';
 import '../../views/editRoomPage.dart';
 import '../../widgets/general/tButton.dart';
 import '../../widgets/sidemenu/roomListView.dart';
@@ -12,7 +12,8 @@ class SideMenu extends StatefulWidget {
   final List<RoomShort> roomList;
   final Room currRoom;
 
-  SideMenu({
+  const SideMenu({
+    super.key,
     required this.user,
     required this.roomList,
     required this.currRoom,

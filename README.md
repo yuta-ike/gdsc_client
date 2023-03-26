@@ -22,3 +22,9 @@ Save google credential file as "google-credential.json" in the "/assets" directo
 ```
 /assets/google-credential.json
 ```
+
+## Firebase Set up
+
+以下の Android の設定のセクションを参照
+
+https://zenn.dev/kazutxt/books/flutter_practice_introduction/viewer/30_chapter4_authentication#android%E3%81%AE%E8%A8%AD%E5%AE%9
