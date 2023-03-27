@@ -15,6 +15,14 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## Google Vision API Setup
+
+Save google credential file as "google-credential.json" in the "/assets" directory
+
+```
+/assets/google-credential.json
+```
+
 ## Firebase Set up
 
 以下の Android の設定のセクションを参照

@@ -41,6 +41,8 @@ dependencies:
   # ARCore plugin dependencies
   arcore_flutter_plugin: ^0.1.0
   ar_flutter_plugin: ^0.7.3
+  google_vision: ^1.0.7+6
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +67,8 @@ flutter:
 
   assets:
     - src/img/profileIcon.png
+    - src/img/sample.jpeg
+    - assets/google-credential.json
     # - src/model/Duck.glb
 
   # To add assets to your application, add an assets section, like this:
