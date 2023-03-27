@@ -100,7 +100,7 @@ class _ScreenshotWidgetState extends State<ScreenshotWidget> {
     // if (!context.mounted) {
     //   return;
     // }
-    // final painter = await convertRawImageToPainter(context, imageProvider);
+    // final painter = await convertImageToPainter(context, imageProvider);
 
     // Detect object positions
     final positions = await detectObjectPositions(painter);
