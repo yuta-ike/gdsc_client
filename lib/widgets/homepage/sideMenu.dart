@@ -62,7 +62,7 @@ class _SideMenuState extends State<SideMenu> {
                       ),
                     );
                   },
-                  buttonWidth: 130,
+                  buttonWidth: 150,
                   additionalButtonIcon: Icon(Icons.add),
                 ),
               ),
