@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/views/login.dart';
+import 'package:gdsc_client/views/login.dart';
 import '../widgets/appbar/appbar.dart';
 import '../widgets/appbar/appbarButton.dart';
 
