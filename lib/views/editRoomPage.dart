@@ -29,7 +29,7 @@ class _EditRoomPageState extends State<EditRoomPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarConstructor(
-        titleStr: "Edit Room Info",
+        titleStr: widget.currRoom == null ? "Add Room" : "Edit Room Info",
         context: context,
         leftNaviBarButton: AppBarButton(
           buttonCallBack: () => Navigator.of(context).pop(),
@@ -109,22 +109,24 @@ class _EditRoomPageState extends State<EditRoomPage> {
                         ? 0
                         : widget.currRoom!.householdList.length) +
                     3) {
-              return Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: eButton(
-                        buttonPressedVoidBack: () {},
-                        buttonText: "DELETE ROOM"),
-                  ),
-                  SizedBox(
-                    height: 100,
-                  ),
-                ],
-              );
+              return widget.currRoom == null
+                  ? null
+                  : Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          child: eButton(
+                              buttonPressedVoidBack: () {},
+                              buttonText: "DELETE ROOM"),
+                        ),
+                        SizedBox(
+                          height: 100,
+                        ),
+                      ],
+                    );
             } else {
               return Column(
                 children: [
