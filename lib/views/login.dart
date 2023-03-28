@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/utils/login.dart';
-import 'package:gdsc_clientx/widgets/general/eButton.dart';
+import 'package:gdsc_client/request.dart';
+import 'package:gdsc_client/utils/login.dart';
+import 'package:gdsc_client/widgets/general/eButton.dart';
 
 import 'homePage.dart';
 

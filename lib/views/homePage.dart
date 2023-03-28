@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gdsc_client/views/goToLoginPage.dart';
 import '../views/inspectMainPage.dart';
 import '../widgets/homepage/sideMenu.dart';
 import '../widgets/listTile/warningListTile.dart';
@@ -24,26 +25,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final StarredList starredList = Mock.getMockStarredList;
 
+  final roomListShort = Mock.roomList;
   final Room room = Mock.getSingleRoom;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final roomListShort = Mock.roomList;
-
   @override
   Widget build(BuildContext context) {
     if (widget.user == null) {
-      return Scaffold(
-        body: Center(
-          child: eButton(
-              buttonPressedVoidBack: () => Navigator.of(context)
-                  .pushAndRemoveUntil(
-                      MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const LoginPage()),
-                      (route) => false),
-              buttonText: "Go to login"),
-        ),
-      );
+      return GoToLoginPage();
     }
 
     return Scaffold(

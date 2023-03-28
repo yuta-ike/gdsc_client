@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_client/views/roomInfoRegisterPage.dart';
 import '../widgets/appbar/appbar.dart';
 import '../widgets/appbar/appbarButton.dart';
 import '../model/room.dart';
