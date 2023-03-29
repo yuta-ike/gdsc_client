@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:google_vision/google_vision.dart';
 import 'package:google_vision/google_vision.dart' as google_vision;
 import 'package:path_provider/path_provider.dart';
@@ -25,7 +26,12 @@ Future<Painter> convertImageToPainter(
   if (bytes == null) {
     throw Exception('Failed to load image bytes.');
   }
-  final painter = Painter(bytes);
+  final compressedBytes = await FlutterImageCompress.compressWithList(
+    bytes,
+    minHeight: 1920,
+    minWidth: 1080,
+  );
+  final painter = Painter(compressedBytes);
   return painter;
 }
 
