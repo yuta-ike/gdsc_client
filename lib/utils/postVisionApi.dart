@@ -30,6 +30,7 @@ Future<Painter> convertImageToPainter(
     bytes,
     minHeight: 1920,
     minWidth: 1080,
+    format: CompressFormat.jpeg,
   );
   final painter = Painter(compressedBytes);
   return painter;
