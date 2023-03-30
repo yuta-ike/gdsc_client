@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_client/model/household.dart';
 import 'package:gdsc_client/views/roomInfoRegisterPage.dart';
 import 'package:gdsc_client/widgets/general/householdCardButtons.dart';
 import '../widgets/appbar/appbar.dart';
@@ -16,16 +17,49 @@ class EditRoomPage extends StatefulWidget {
     this.currRoom,
   });
 
-  TextEditingController get roomNameController =>
-      TextEditingController(text: currRoom == null ? "" : currRoom!.roomTitle);
-  TextEditingController get roomCityController =>
-      TextEditingController(text: currRoom == null ? "" : currRoom!.roomCity);
-
   @override
   State<EditRoomPage> createState() => _EditRoomPageState();
 }
 
 class _EditRoomPageState extends State<EditRoomPage> {
+  List<Household> _hList = [];
+  TextEditingController _roomNameController = TextEditingController();
+  TextEditingController _roomCityController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _hList = widget.currRoom == null ? [] : widget.currRoom!.householdList;
+      if (widget.currRoom != null) {
+        _roomNameController.text = widget.currRoom!.roomTitle;
+        _roomCityController.text = widget.currRoom!.roomCity;
+      }
+    });
+  }
+
+  _addHousehold() {
+    setState(() {
+      _hList.add(Household(
+        age: 0,
+        height: 0,
+        needWheelChair: false,
+      ));
+    });
+  }
+
+  _removeHousehold() {
+    setState(() {
+      if (_hList.length > 0) {
+        _hList.removeLast();
+      }
+    });
+  }
+
+  _confirmEditRoom() {}
+
+  _deleteRoom() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +74,7 @@ class _EditRoomPageState extends State<EditRoomPage> {
           context: context,
         ),
         rightNaviBarButton: AppBarButton(
-            buttonCallBack: () {},
+            buttonCallBack: _confirmEditRoom,
             buttonIcon: Icon(Icons.check),
             context: context),
       ),
@@ -72,7 +106,7 @@ class _EditRoomPageState extends State<EditRoomPage> {
                       return null;
                     },
                     label: "Room Name",
-                    textInputController: widget.roomNameController,
+                    textInputController: _roomNameController,
                     fieldLength: 160,
                   ),
                   SizedBox(
@@ -86,7 +120,7 @@ class _EditRoomPageState extends State<EditRoomPage> {
                       return null;
                     },
                     label: "City",
-                    textInputController: widget.roomCityController,
+                    textInputController: _roomCityController,
                     fieldLength: 100,
                   ),
                 ],
@@ -97,20 +131,24 @@ class _EditRoomPageState extends State<EditRoomPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  TextTitle(
-                    titleText: "Household Info",
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextTitle(
+                        titleText: "Household Info",
+                      ),
+                      HouseholdCardButtons(
+                        addHouseholdCallBack: _addHousehold,
+                        removeHouseholdCallBack: _removeHousehold,
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  HouseholdCardButtons(),
                 ],
               );
-            } else if (index ==
-                (widget.currRoom == null
-                        ? 0
-                        : widget.currRoom!.householdList.length) +
-                    3) {
+            } else if (index == _hList.length + 3) {
               return widget.currRoom == null
                   ? null
                   : Column(
@@ -121,7 +159,7 @@ class _EditRoomPageState extends State<EditRoomPage> {
                         Container(
                           width: double.infinity,
                           child: eButton(
-                              buttonPressedVoidBack: () {},
+                              buttonPressedVoidBack: _deleteRoom,
                               buttonText: "DELETE ROOM"),
                         ),
                         SizedBox(
@@ -133,7 +171,7 @@ class _EditRoomPageState extends State<EditRoomPage> {
               return Column(
                 children: [
                   HouseHoldCard(
-                    household: widget.currRoom!.householdList[index - 3],
+                    household: _hList[index - 3],
                   ),
                   SizedBox(
                     height: 5,
@@ -142,10 +180,7 @@ class _EditRoomPageState extends State<EditRoomPage> {
               );
             }
           },
-          itemCount: (widget.currRoom == null
-                  ? 0
-                  : widget.currRoom!.householdList.length) +
-              4,
+          itemCount: _hList.length + 4,
         ),
       ),
     );

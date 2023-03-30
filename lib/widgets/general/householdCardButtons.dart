@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 class HouseholdCardButtons extends StatelessWidget {
-  final VoidCallback addHouseholdCallBack = () {};
-  final VoidCallback removeHouseholdCallBack = () {};
+  final VoidCallback addHouseholdCallBack;
+  final VoidCallback removeHouseholdCallBack;
+
+  HouseholdCardButtons({
+    required this.addHouseholdCallBack,
+    required this.removeHouseholdCallBack,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 50,
+      width: 100,
       child: Row(
         children: [
           IconButton(
