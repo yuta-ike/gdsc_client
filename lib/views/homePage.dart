@@ -48,12 +48,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> _updateCurrRoom(String roomId) async {
+  _updateCurrRoom(String roomId) async {
     Request.getRoomInfo(widget.user!.uid, roomId).then((value) {
       setState(() {
         _room = value!;
       });
     });
+  }
+
+  _refreshDataAfterEditRoom(String roomId) {
+    _currRoomId = roomId;
+    _updateCurrRoom(roomId);
+    _updateRoomShortList(false);
   }
 
   _sideMenuItemOnTapCallback(String roomId) {
@@ -95,6 +101,7 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(
               builder: (context) {
                 return EditRoomPage(
+                  dataChangedCallback: _refreshDataAfterEditRoom,
                   currRoom: _room,
                 );
               },
@@ -105,6 +112,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: SideMenu(
+        roomCreateCallback: _refreshDataAfterEditRoom,
         currRoomId: _currRoomId,
         roomList: _roomListShort!,
         user: widget.user!,

@@ -6,7 +6,7 @@ import 'dart:convert';
 import './model/roomShort.dart';
 
 class Request {
-  static final String _mainUrl = "10.24.90.30:8080";
+  static final String _mainUrl = "10.9.80.248:8080";
 
   static dynamic _response(http.Response response) {
     switch (response.statusCode) {
@@ -40,9 +40,13 @@ class Request {
     }
   }
 
-  static Future<dynamic> _postRequest(endpoint, tokens) async {
+  static Future<dynamic> _postRequest(
+      String endpoint, Map<String, Object> tokens, String body) async {
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
     try {
-      var response = await http.post(Uri.http(_mainUrl, endpoint, tokens));
+      var response = await http.post(Uri.http(_mainUrl, endpoint, tokens),
+          headers: headers, body: body);
       var jsonResponse = _response(response);
       return jsonResponse;
     } on SocketException catch (socketException) {
@@ -89,51 +93,59 @@ class Request {
 
   // Room
 
-  static Future<void> postUpdateRoom(
+  static Future<bool> postUpdateRoom(
       String uid,
       String currRoomId,
       String newRoomName,
       String newRoomCity,
       List<Household> householdList) async {
-    final String endpoint = "/room/update";
-    List<Map<String, Object>> householdTokens = householdList
+    final String endpoint = "/room/update/";
+    List<Map<String, Object>> body = householdList
         .map((household) => {
               "age": household.age,
               "height": household.height.toInt(),
               "wheelchair": household.needWheelChair,
             })
         .toList();
-    Map<String, String> token = {
+    Map<String, Object> requestTokens = {
       "token": uid,
       "room_id": currRoomId,
       "room_name": newRoomName,
       "city": newRoomCity,
-      "household": jsonEncode(householdTokens),
     };
-    print(token);
+    var res = await _postRequest(endpoint, requestTokens, json.encode(body));
+    if (res["status_code"] == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  static Future<void> postCreateRoom(
+  static Future<String> postCreateRoom(
     String uid,
     String newRoomName,
     String newRoomCity,
     List<Household> householdList,
   ) async {
-    final String endpoint = "/room/create";
-    List<Map<String, Object>> householdTokens = householdList
+    final String endpoint = "/room/create/";
+    List<Map<String, Object>> body = householdList
         .map((household) => {
               "age": household.age,
               "height": household.height.toInt(),
               "wheelchair": household.needWheelChair,
             })
         .toList();
-    Map<String, String> token = {
+    Map<String, String> requestTokens = {
       "token": uid,
       "room_name": newRoomName,
       "city": newRoomCity,
-      "household": jsonEncode(householdTokens),
     };
-    print(token);
+    var res = await _postRequest(endpoint, requestTokens, json.encode(body));
+    if (res["status_code"] == 0) {
+      return res["comment"]["id"].toString();
+    } else {
+      return "";
+    }
   }
 
   static Future<void> postDeleteRoom(String uid, String currRoomId) async {

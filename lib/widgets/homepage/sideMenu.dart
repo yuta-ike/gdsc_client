@@ -12,6 +12,7 @@ class SideMenu extends StatefulWidget {
   final List<RoomShort> roomList;
   String currRoomId;
   final Function listTileOnTapCallback;
+  final Function roomCreateCallback;
 
   SideMenu({
     super.key,
@@ -19,6 +20,7 @@ class SideMenu extends StatefulWidget {
     required this.roomList,
     required this.currRoomId,
     required this.listTileOnTapCallback,
+    required this.roomCreateCallback,
   });
 
   @override
@@ -67,7 +69,12 @@ class _SideMenuState extends State<SideMenu> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
-                          return EditRoomPage();
+                          return EditRoomPage(
+                            dataChangedCallback: (String newRoomId) {
+                              widget.roomCreateCallback(newRoomId);
+                              Navigator.of(context).pop();
+                            },
+                          );
                         },
                       ),
                     );

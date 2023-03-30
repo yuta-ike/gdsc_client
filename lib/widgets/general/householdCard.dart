@@ -5,13 +5,16 @@ import './inputTextField.dart';
 
 class HouseHoldCard extends StatefulWidget {
   final Household? household;
+  final Function heightOnChangedCallback;
+  final Function ageOnChangedCallback;
+  final Function wheelChairOnSavedCallback;
 
-  HouseHoldCard({this.household});
-
-  TextEditingController get _ageInputController => TextEditingController(
-      text: household == null ? "" : household!.age.toString());
-  TextEditingController get _heightInputController => TextEditingController(
-      text: household == null ? "" : household!.height.toString());
+  HouseHoldCard({
+    required this.household,
+    required this.heightOnChangedCallback,
+    required this.ageOnChangedCallback,
+    required this.wheelChairOnSavedCallback,
+  });
 
   final Function _numInputValidator = (value) {
     if (value == null || double.tryParse(value) == null) {
@@ -27,6 +30,20 @@ class HouseHoldCard extends StatefulWidget {
 }
 
 class _HouseHoldCardState extends State<HouseHoldCard> {
+  TextEditingController _ageInputController = TextEditingController();
+  TextEditingController _heightInputController = TextEditingController();
+  int _currDDownMenuIdx = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _heightInputController.text = widget.household!.height.toString();
+      _ageInputController.text = widget.household!.age.toString();
+      _currDDownMenuIdx = widget.household!.needWheelChair == false ? 1 : 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -47,28 +64,33 @@ class _HouseHoldCardState extends State<HouseHoldCard> {
               Row(
                 children: [
                   InputTextField(
+                    hintText: "0",
                     label: "Age",
-                    textInputController: widget._ageInputController,
+                    textInputController: _ageInputController,
                     validator: widget._numInputValidator,
                     textInputType: TextInputType.number,
                     fieldLength: 40,
+                    onChangedCallBack: widget.ageOnChangedCallback,
                   ),
                   SizedBox(width: 20),
                   InputTextField(
+                    hintText: "0",
                     label: "Height",
-                    textInputController: widget._heightInputController,
+                    textInputController: _heightInputController,
                     validator: widget._numInputValidator,
                     textInputType: TextInputType.number,
                     fieldLength: 60,
                     unitText: "cm",
+                    onChangedCallBack: widget.heightOnChangedCallback,
                   )
                 ],
               ),
               DDownMenu(
+                onChangedCallback: widget.wheelChairOnSavedCallback,
                 choices: ["Yes", "No"],
                 title: "Wheel Chair Usage",
                 fieldWidth: 120,
-                defaultValueIdx: widget.household!.needWheelChair ? 0 : 1,
+                defaultValueIdx: _currDDownMenuIdx,
               ),
             ],
           ),

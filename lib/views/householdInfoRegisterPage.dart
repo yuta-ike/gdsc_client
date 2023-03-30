@@ -8,14 +8,18 @@ import 'package:gdsc_client/widgets/general/tButton.dart';
 import 'package:gdsc_client/widgets/general/texttitle.dart';
 
 class HouseholdInfoRegisterPage extends StatefulWidget {
-  final List<Household> householdList = [];
-
   @override
   State<HouseholdInfoRegisterPage> createState() =>
       _HouseholdInfoRegisterPageState();
 }
 
 class _HouseholdInfoRegisterPageState extends State<HouseholdInfoRegisterPage> {
+  List<Household> _hList = [];
+  _heightOnSaved(newValue) {}
+
+  _ageOnSaved(newValue) {}
+
+  _wheelchairOnSaved(newValue) {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +49,7 @@ class _HouseholdInfoRegisterPageState extends State<HouseholdInfoRegisterPage> {
                   ),
                 ],
               );
-            } else if (index == widget.householdList.length + 1) {
+            } else if (index == _hList.length + 1) {
               return Column(
                 children: [
                   SizedBox(
@@ -70,9 +74,14 @@ class _HouseholdInfoRegisterPageState extends State<HouseholdInfoRegisterPage> {
                 ],
               );
             }
-            return HouseHoldCard();
+            return HouseHoldCard(
+              household: _hList[index - 2],
+              heightOnChangedCallback: _heightOnSaved,
+              wheelChairOnSavedCallback: _wheelchairOnSaved,
+              ageOnChangedCallback: _ageOnSaved,
+            );
           },
-          itemCount: widget.householdList.length + 2,
+          itemCount: _hList.length + 2,
         ),
       ),
     );
