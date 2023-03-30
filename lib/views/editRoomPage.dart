@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_client/views/roomInfoRegisterPage.dart';
+import 'package:gdsc_client/widgets/general/householdCardButtons.dart';
 import '../widgets/appbar/appbar.dart';
 import '../widgets/appbar/appbarButton.dart';
 import '../model/room.dart';
@@ -102,6 +103,7 @@ class _EditRoomPageState extends State<EditRoomPage> {
                   SizedBox(
                     height: 20,
                   ),
+                  HouseholdCardButtons(),
                 ],
               );
             } else if (index ==

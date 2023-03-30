@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_client/model/household.dart';
+import 'package:gdsc_client/views/homePage.dart';
 import 'package:gdsc_client/widgets/appbar/appbar.dart';
 import 'package:gdsc_client/widgets/appbar/appbarButton.dart';
 import 'package:gdsc_client/widgets/general/householdCard.dart';
@@ -55,7 +56,13 @@ class _HouseholdInfoRegisterPageState extends State<HouseholdInfoRegisterPage> {
                     child: Container(
                       child: tButton(
                         buttonText: "Done",
-                        tButtonPressedCallBack: () {},
+                        tButtonPressedCallBack: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      HomePage()),
+                              (route) => false);
+                        },
                         buttonWidth: 80,
                       ),
                     ),

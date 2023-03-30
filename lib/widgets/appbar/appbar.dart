@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import './appbarButton.dart';
 
-class AppBarConstructor extends StatelessWidget with PreferredSizeWidget {
+class AppBarConstructor extends StatefulWidget with PreferredSizeWidget {
   final String titleStr;
   final AppBarButton? leftNaviBarButton;
   final AppBarButton? rightNaviBarButton;
   final BuildContext context;
-
-  // Appbar style properties
-  final Color appBarBackgroundColor = Colors.white;
-  final Color appBarIconColor = Color.fromRGBO(158, 158, 158, 1);
-  final double appBarHeight = 100;
-  final Color appBarTitleTextColor = Colors.black;
-  final double appBarTextFontSize = 60;
 
   AppBarConstructor({
     required this.titleStr,
@@ -22,21 +15,41 @@ class AppBarConstructor extends StatelessWidget with PreferredSizeWidget {
   });
 
   @override
+  State<AppBarConstructor> createState() => _AppBarConstructorState();
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => new Size.fromHeight(60.0);
+}
+
+class _AppBarConstructorState extends State<AppBarConstructor> {
+  // Appbar style properties
+  final Color appBarBackgroundColor = Colors.white;
+
+  final Color appBarIconColor = Color.fromRGBO(158, 158, 158, 1);
+
+  final double appBarHeight = 100;
+
+  final Color appBarTitleTextColor = Colors.black;
+
+  final double appBarTextFontSize = 60;
+
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0.0,
       centerTitle: false,
       title: Text(
-        titleStr,
+        widget.titleStr,
         style: TextStyle(
           color: Theme.of(context).primaryColor,
         ),
       ),
-      leading: leftNaviBarButton,
-      actions: rightNaviBarButton == null
+      leading: widget.leftNaviBarButton,
+      actions: widget.rightNaviBarButton == null
           ? null
           : [
-              rightNaviBarButton!,
+              widget.rightNaviBarButton!,
             ],
       toolbarHeight: appBarHeight,
       iconTheme: IconThemeData(

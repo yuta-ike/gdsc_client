@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_client/views/goToLoginPage.dart';
 import 'package:gdsc_client/views/householdInfoRegisterPage.dart';
+import 'package:gdsc_client/views/login.dart';
 import 'package:gdsc_client/widgets/appbar/appbar.dart';
 import 'package:gdsc_client/widgets/appbar/appbarButton.dart';
 import 'package:gdsc_client/widgets/general/inputTextField.dart';
@@ -30,7 +31,14 @@ class _RoomInfoRegisterPageState extends State<RoomInfoRegisterPage> {
         titleStr: "Add first Room",
         context: context,
         leftNaviBarButton: AppBarButton(
-          buttonCallBack: () => Navigator.of(context).pop(),
+          buttonCallBack: () async {
+            final navigator = Navigator.of(context);
+            await FirebaseAuth.instance.signOut();
+            navigator.pushAndRemoveUntil(
+                MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const LoginPage()),
+                (route) => false);
+          },
           buttonIcon: Icon(Icons.arrow_back),
           context: context,
         ),
