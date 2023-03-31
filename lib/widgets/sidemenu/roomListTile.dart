@@ -6,10 +6,12 @@ import '../../model/roomShort.dart';
 class RoomListTile extends StatefulWidget {
   final RoomShort room;
   final bool disabled;
+  final onPressedCallback;
 
   RoomListTile({
     required this.room,
     required this.disabled,
+    required this.onPressedCallback,
   });
 
   @override
@@ -24,7 +26,7 @@ class _RoomListTileState extends State<RoomListTile> {
       child: Container(
         height: 45,
         child: ElevatedButton(
-          onPressed: widget.disabled == true ? () {} : null,
+          onPressed: widget.disabled == true ? widget.onPressedCallback : null,
           child: Text(
             widget.room.roomName,
             style: TextStyle(

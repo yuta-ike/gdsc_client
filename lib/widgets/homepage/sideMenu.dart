@@ -10,13 +10,17 @@ import '../../widgets/sidemenu/userProfileCard.dart';
 class SideMenu extends StatefulWidget {
   final User user;
   final List<RoomShort> roomList;
-  final Room currRoom;
+  String currRoomId;
+  final Function listTileOnTapCallback;
+  final Function roomCreateCallback;
 
-  const SideMenu({
+  SideMenu({
     super.key,
     required this.user,
     required this.roomList,
-    required this.currRoom,
+    required this.currRoomId,
+    required this.listTileOnTapCallback,
+    required this.roomCreateCallback,
   });
 
   @override
@@ -24,6 +28,13 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
+  changeRoom(String roomIdOnTapped) {
+    setState(() {
+      widget.currRoomId = roomIdOnTapped;
+    });
+    widget.listTileOnTapCallback(roomIdOnTapped);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -33,8 +44,9 @@ class _SideMenuState extends State<SideMenu> {
           Expanded(
             child: Container(
               child: RoomListView(
-                currRoom: widget.currRoom,
+                currRoomId: widget.currRoomId,
                 roomListShort: widget.roomList,
+                listTileOnTapCallback: changeRoom,
               ),
             ),
           ),
@@ -57,12 +69,17 @@ class _SideMenuState extends State<SideMenu> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
-                          return EditRoomPage();
+                          return EditRoomPage(
+                            dataChangedCallback: (String newRoomId) {
+                              widget.roomCreateCallback(newRoomId);
+                              Navigator.of(context).pop();
+                            },
+                          );
                         },
                       ),
                     );
                   },
-                  buttonWidth: 130,
+                  buttonWidth: 150,
                   additionalButtonIcon: Icon(Icons.add),
                 ),
               ),

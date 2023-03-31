@@ -1,6 +1,6 @@
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_clientx/views/login.dart';
+import 'package:gdsc_client/views/login.dart';
 import './mainTheme.dart';
 import './views/homePage.dart';
 import 'package:firebase_core/firebase_core.dart';

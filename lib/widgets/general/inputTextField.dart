@@ -9,11 +9,13 @@ class InputTextField extends StatelessWidget {
   final TextInputType? textInputType;
   final String? hintText;
   final String? unitText;
+  final Function? onChangedCallBack;
 
   InputTextField({
     required this.label,
     required this.textInputController,
     required this.validator,
+    this.onChangedCallBack,
     this.fieldLength,
     this.textInputType,
     this.hintText,
@@ -26,6 +28,9 @@ class InputTextField extends StatelessWidget {
     return Container(
       width: fieldLength == null ? double.infinity : fieldLength!,
       child: TextFormField(
+        onChanged: (newValue) {
+          onChangedCallBack!(newValue);
+        },
         keyboardType:
             textInputType == null ? TextInputType.text : textInputType!,
         validator: (value) => validator(value),

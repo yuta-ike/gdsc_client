@@ -5,11 +5,13 @@ import '../../widgets/sidemenu/roomListTile.dart';
 
 class RoomListView extends StatefulWidget {
   final List<RoomShort> roomListShort;
-  final Room currRoom;
+  String currRoomId;
+  Function listTileOnTapCallback;
 
   RoomListView({
     required this.roomListShort,
-    required this.currRoom,
+    required this.currRoomId,
+    required this.listTileOnTapCallback,
   });
 
   @override
@@ -27,8 +29,12 @@ class _RoomListViewState extends State<RoomListView> {
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
           return RoomListTile(
+            onPressedCallback: () {
+              Navigator.of(context).pop();
+              widget.listTileOnTapCallback(widget.roomListShort[index].id);
+            },
             room: widget.roomListShort[index],
-            disabled: widget.currRoom.id == widget.roomListShort[index].id
+            disabled: widget.currRoomId == widget.roomListShort[index].id
                 ? false
                 : true,
           );

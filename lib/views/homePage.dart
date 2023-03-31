@@ -1,5 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gdsc_client/model/roomShort.dart';
+import 'package:gdsc_client/request.dart';
+import 'package:gdsc_client/views/goToLoginPage.dart';
 import '../views/inspectMainPage.dart';
 import '../widgets/homepage/sideMenu.dart';
 import '../widgets/listTile/warningListTile.dart';
@@ -14,7 +18,9 @@ import '../views/editRoomPage.dart';
 import 'login.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  HomePage({
+    super.key,
+  });
   final User? user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -22,35 +28,67 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<RoomShort>? _roomListShort = [];
+  String _currRoomId = "1";
   final StarredList starredList = Mock.getMockStarredList;
 
-  final Room room = Mock.getSingleRoom;
+  Room _room = Room(roomTitle: "", roomCity: "", id: "", householdList: []);
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final roomListShort = Mock.roomList;
+  Future<void> _updateRoomShortList(bool isInit) async {
+    List<RoomShort>? rListShort = await Request.getUserInfo(widget.user!.uid);
+    if (isInit == true) {
+      _currRoomId = rListShort![0].id;
+    }
+    Request.getUserInfo(widget.user!.uid).then((value) {
+      setState(() {
+        _roomListShort = rListShort!;
+      });
+    });
+  }
+
+  _updateCurrRoom(String roomId) async {
+    Request.getRoomInfo(widget.user!.uid, roomId).then((value) {
+      setState(() {
+        _room = value!;
+      });
+    });
+  }
+
+  _refreshDataAfterEditRoom(String roomId) {
+    _currRoomId = roomId;
+    _updateCurrRoom(roomId);
+    _updateRoomShortList(false);
+  }
+
+  _sideMenuItemOnTapCallback(String roomId) {
+    _currRoomId = roomId;
+    Request.getRoomInfo(widget.user!.uid, roomId).then((value) {
+      setState(() {
+        _room = value!;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _updateRoomShortList(true);
+    _updateCurrRoom(_currRoomId);
+  }
 
   @override
   Widget build(BuildContext context) {
     if (widget.user == null) {
-      return Scaffold(
-        body: Center(
-          child: eButton(
-              buttonPressedVoidBack: () => Navigator.of(context)
-                  .pushAndRemoveUntil(
-                      MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const LoginPage()),
-                      (route) => false),
-              buttonText: "Go to login"),
-        ),
-      );
+      return GoToLoginPage();
     }
 
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBarConstructor(
         context: context,
-        titleStr: room.roomTitle,
+        titleStr: _room.roomTitle,
         leftNaviBarButton: AppBarButton(
           buttonCallBack: () {
             _scaffoldKey.currentState!.openDrawer();
@@ -63,7 +101,8 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(
               builder: (context) {
                 return EditRoomPage(
-                  currRoom: room,
+                  dataChangedCallback: _refreshDataAfterEditRoom,
+                  currRoom: _room,
                 );
               },
             ),
@@ -73,9 +112,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: SideMenu(
-        currRoom: room,
-        roomList: roomListShort,
+        roomCreateCallback: _refreshDataAfterEditRoom,
+        currRoomId: _currRoomId,
+        roomList: _roomListShort!,
         user: widget.user!,
+        listTileOnTapCallback: _sideMenuItemOnTapCallback,
       ),
       drawerEdgeDragWidth: 0,
       body: Padding(
@@ -86,7 +127,7 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (BuildContext context, int index) {
             if (index == 0) {
               return RoomInfoCard(
-                room: room,
+                room: _room,
               );
             } else if (index == 1) {
               return Padding(
