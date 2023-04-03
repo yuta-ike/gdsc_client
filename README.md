@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
+## Document & Record
+https://xiaogeamadeus.notion.site/GDSC-Project-Homesei-b49e13ca38784a16b2c54a22cf8b1357
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
@@ -25,6 +28,6 @@ Save google credential file as "google-credential.json" in the "/assets" directo
 
 ## Firebase Set up
 
-以下の Android の設定のセクションを参照
+Please follow the setting as below. 
 
 https://zenn.dev/kazutxt/books/flutter_practice_introduction/viewer/30_chapter4_authentication#android%E3%81%AE%E8%A8%AD%E5%AE%9
