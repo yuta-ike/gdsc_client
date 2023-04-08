@@ -6,7 +6,9 @@ import 'dart:convert';
 import './model/roomShort.dart';
 
 class Request {
-  static final String _mainUrl = "10.9.80.248:8080";
+  // Please write your local IP in here
+  // After testing, it should be changed to GCP Application https route.
+  static final String _mainUrl = "";
 
   static dynamic _response(http.Response response) {
     switch (response.statusCode) {

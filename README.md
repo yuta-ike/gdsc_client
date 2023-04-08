@@ -1,9 +1,15 @@
 # gdsc_client
 
-A new Flutter project.
+## Homesei
+An android application using AR technology to create a safe living environment for the aging.
+
+The client end of Homesei application.
+
+## Competition
+This project is created for [Google Solution Challenge 2023](https://developers.google.com/community/gdsc-solution-challenge)
 
 ## Document & Record
-https://xiaogeamadeus.notion.site/GDSC-Project-Homesei-b49e13ca38784a16b2c54a22cf8b1357
+[Document & Record](https://xiaogeamadeus.notion.site/GDSC-Project-Homesei-b49e13ca38784a16b2c54a22cf8b1357)
 
 ## Getting Started
 
@@ -17,6 +23,8 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+Next, please change the link to your local IP link in lib/request.dart
 
 ## Google Vision API Setup
 
