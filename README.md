@@ -5,11 +5,18 @@ An android application using AR technology to create a safe living environment f
 
 The client end of Homesei application.
 
+
 ## Competition
-This project is created for [Google Solution Challenge 2023](https://developers.google.com/community/gdsc-solution-challenge)
+Homesei is created for [Google Solution Challenge 2023](https://developers.google.com/community/gdsc-solution-challenge).
+
+## Homesei: The 17 Sustainable Development Goals of the United Nations
+1. For [Good Health and Wellbeing](https://sdg-tracker.org/good-health).
+2. For [Sustainable Cities and Communities](https://sdg-tracker.org/cities).
+
 
 ## Document & Record
-[Document & Record](https://xiaogeamadeus.notion.site/GDSC-Project-Homesei-b49e13ca38784a16b2c54a22cf8b1357)
+The development document and meeting record is wrote in here:
+[Document Record](https://xiaogeamadeus.notion.site/GDSC-Project-Homesei-b49e13ca38784a16b2c54a22cf8b1357)
 
 ## Getting Started
 
